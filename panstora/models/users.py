@@ -53,6 +53,7 @@ class User(Base):
     username = Column(Unicode(32), unique=True)
     name = Column(Unicode(64))
     email = Column(Unicode(64))
+    dev_id = Column(Unicode(64), unique=True)
 
     _password = Column('password', Unicode(64))
 
@@ -65,7 +66,8 @@ class User(Base):
     password = property(_get_password, _set_password)
     password = synonym('_password', descriptor=password)
 
-    def __init__(self, username, password, name, email):
+    def __init__(self, dev_id, username=None, password=None, name=None, email=None):
+        self.dev_id = dev_id
         self.username = username
         self.name = name
         self.email = email
