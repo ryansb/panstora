@@ -5,8 +5,6 @@ from sqlalchemy import (
 )
 
 from sqlalchemy.orm import (
-    scoped_session,
-    sessionmaker,
     relationship,
     relation,
     backref,
@@ -24,23 +22,19 @@ from sqlalchemy.types import (
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
 
-from zope.sqlalchemy import ZopeTransactionExtension
-
 from pyramid.security import (
     Everyone,
     Authenticated,
     Allow,
 )
 
-from panstora.models import Base
+from panstora.models import Base, DBSession
 
 from panstora.utils import (
     hash_password,
     encode58,
     decode58
 )
-
-DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
 
 tag_item_assoc_table = Table(
@@ -81,6 +75,10 @@ class Item(Base):
         return it.first()
 
     @classmethod
+    def get_all(cls):
+        return DBSession.query(cls).all()
+
+    @classmethod
     def get_by_code(cls, code):
         it = DBSession.query(cls).filter(cls.code == code)
         return it.first()
@@ -98,11 +96,24 @@ class Item(Base):
             tags=[t.name() for t in self.tags],
         )
 
+    def put(self):
+        DBSession.add(self)
+        DBSession.commit()
+
 class Tag(Base):
     __tablename__ = 'tags'
     id_ = Column(Integer, primary_key=True)
     name = Column(Unicode(50), unique=True, index=True)
     items = relationship('Item', secondary=tag_item_assoc_table)
+
+    @classmethod
+    def get_by_name(cls, name):
+        it = DBSession.query(cls).filter(cls.name == name)
+        return it.first()
+
+    @classmethod
+    def get_all(cls):
+        return DBSession.query(cls).all()
 
     def to_dict(self, deep=False):
         if deep:
@@ -116,3 +127,7 @@ class Tag(Base):
             name=self.name,
             items=[i.name for i in self.items],
         )
+
+    def put(self):
+        DBSession.add(self)
+        DBSession.commit()
