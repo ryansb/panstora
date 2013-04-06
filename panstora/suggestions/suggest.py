@@ -1,46 +1,27 @@
-'''
-suggest looks in the database to find all items
- * Suggestion Logic
-     * Creates list of items that have similar tags
-     * Sorts by number of related tags
- * Returns top one
-suggest calls sendSuggestion
-'''
-
 from panstora.models import (
-    Base,
-    User,
-    Item,
-    Tag
+    Item
 )
 
 from panstora.suggestions import (
     sendSuggestion
 )
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+
+def getMostMatchingTags(base_item, items):
+    ''' Basic matching - find one that matches the most tags '''
+    stats = {}
+    for item in items:
+        stats[item] = reduce(tag in base_item.tags for tag in item.tags)
+    return max(stats.iterkeys(), key=lambda k: stats[k])
 
 
-def getMostMatchingTags(base_item, db):
-    x = []
-    for tag in base_item.tag:
-        x = db.query(Tag).filter_by(name=tag)
-    return None
-
-
-def getSuggestion(base_item, dbname="sqlite:////tmp/test.db", mode=getMostMatchingTags):
-    # Set up the sqlite connection
-    engine = create_engine(dbname)
-    metadata = Base.metadata
-    metadata.create_all(engine)
-    Session = sessionmaker(bind=engine)
-    # Create the database
-    db = Session()
-    # Return the suggestion chosen by that particular method
-    return mode(base_item, db)
+def getSuggestion(base_item, mode=getMostMatchingTags):
+    ''' Return the suggestion chosen by the given method '''
+    return mode(base_item, Item.get_all())
 
 
 def suggest(regid, base_item):
+    ''' Send a suggestion to a user based on an item '''
     sug = getSuggestion(base_item)
+    sug.suggType = None
     sendSuggestion(regid, sug)
