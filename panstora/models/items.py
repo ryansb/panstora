@@ -17,6 +17,7 @@ from sqlalchemy.orm import (
 
 from sqlalchemy.types import (
     Integer,
+    Float,
     Unicode,
 )
 
@@ -56,8 +57,11 @@ class Item(Base):
     __tablename__ = 'items'
     id_ = Column(Integer, primary_key=True)
     name = Column(Unicode(50), unique=True, index=True)
-    description = Column(Unicode(256), unique=True, index=True)
+    description = Column(Unicode(256))
     tags = relationship('Tag', secondary=tag_item_assoc_table)
+    price = Column(Float)
+    rack = Column(Integer)
+    dept = Column(Unicode(64))
 
     def _get_code(self):
         return encode58(self.id_)
@@ -68,8 +72,8 @@ class Item(Base):
     code = property(_get_code, _set_code)
     code = synonym('_code', descriptor=code)
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, name=None):
+        if name: self.name = name
 
     @classmethod
     def get_by_name(cls, name):
@@ -84,17 +88,17 @@ class Item(Base):
     def to_dict(self, deep=False):
         if deep:
             return dict(
-                id_=self.id_
-                name=self.name
-                tags=[t.to_dict() for t in self.tags]
+                id_=self.id_,
+                name=self.name,
+                tags=[t.to_dict() for t in self.tags],
             )
         return dict(
-            id_=self.id_
-            name=self.name
-            tags=[t.name() for t in self.tags]
+            id_=self.id_,
+            name=self.name,
+            tags=[t.name() for t in self.tags],
         )
 
-class Tags(Base):
+class Tag(Base):
     __tablename__ = 'tags'
     id_ = Column(Integer, primary_key=True)
     name = Column(Unicode(50), unique=True, index=True)
@@ -103,12 +107,12 @@ class Tags(Base):
     def to_dict(self, deep=False):
         if deep:
             return dict(
-                id_=self.id_
-                name=self.name
-                items=[i.to_dict() for i in self.items]
+                id_=self.id_,
+                name=self.name,
+                items=[i.to_dict() for i in self.items],
             )
         return dict(
-            id_=self.id_
-            name=self.name
-            items=[i.name for i in self.items]
+            id_=self.id_,
+            name=self.name,
+            items=[i.name for i in self.items],
         )
