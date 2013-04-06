@@ -9,7 +9,16 @@
 	<title>Panstora</title>
 </head>
 <body>
-<h1>Panstora</h1>
-<p>You have reached the Panstora home page.</p>
+<div class='title-block'>
+	<span class='title'>Panstora</span>
+	<span class='subtitle'>
+		Panstora is the place from which all good things come.
+	</span>
+</div>
+<ul class='nav-list'>
+	<li><a href='/'>Home</a></li>
+	<li>NavB</li>
+	<li>NavC</li>
+</ul>
 </body>
 </html>

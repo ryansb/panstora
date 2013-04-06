@@ -1,1 +1,42 @@
 /* Master CSS stylesheet for Panstora */
+
+/* Applied to main navigation bar */
+.nav-list {
+    display: block;
+    text-align: center;
+}
+
+.nav-list li {
+    display: inline;
+}
+
+.nav-list a {
+    text-decoration: none;
+}
+
+/* Block found on index page containing title and desc. */
+.title-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    font-family: sans-serif;
+}
+
+/* Applied to "Panstora" title spans */
+.title {
+    color: #D2401B; /* reddish-orange */
+    display: block;
+    font-size: 60px;
+    font-family: serif;
+    text-align: center;
+}
+
+/* Applied to subtitle spans */
+.subtitle {
+    color: #AAA; /* grey */
+    display: block;
+    font-size: 20px;
+    font-style: italic;
+    text-align: center;
+}
