@@ -1,3 +1,8 @@
+from pyramid.httpexceptions import (
+    HTTPFound,
+    HTTPNotFound,
+)
+
 from pyramid.view import view_config
 
 from panstora.models import User, Item, Tag
@@ -10,9 +15,11 @@ def index_view(request):
 
 @view_config(route_name='item', renderer='item.mak')
 def item_view(request):
-    item_id = request.matchdict.get('item_id')
-    item = Item.get_by_code(item_id)
+    item = Item.get_by_code(int(request.matchdict.get('item_code')))
+    if item is None:
+        # There's no item with that ID, so go back home for now
+        return HTTPFound(location=request.route_url('index'))
+    # Otherwise, let's return the item data to the item view
     return {
-        'item_id': item_id,
-        'item_name': item.name,
+        'item': item,
     }
