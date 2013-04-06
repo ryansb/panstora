@@ -15,6 +15,7 @@ def main(global_config, **settings):
 
     # Set up routes
     config.add_route('index', '/')
+    config.add_route('item', '/item/{item_id}')
 
     db_url = settings['database.url']
 
