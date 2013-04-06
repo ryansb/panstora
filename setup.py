@@ -31,6 +31,7 @@ setup(name='panstora',
                         'sqlalchemy',
                         'pyramid',
                         'waitress',
+                        'cherrypy',
                         'zope.sqlalchemy',
                         'cryptacular'],
       entry_points="""\
