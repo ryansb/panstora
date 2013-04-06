@@ -41,6 +41,13 @@ from panstora.utils import (
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
 
+tag_item_assoc_table = Table(
+    'association', Base.metadata,
+    Column('tag_id', Integer, ForeignKey('tags.id_')),
+    Column('item_id', Integer, ForeignKey('items.id_'))
+)
+
+
 class Item(Base):
     """
     An item from the store.
@@ -48,6 +55,8 @@ class Item(Base):
     __tablename__ = 'items'
     id_ = Column(Integer, primary_key=True)
     name = Column(Unicode(50), unique=True, index=True)
+    description = Column(Unicode(256), unique=True, index=True)
+    tags = relationship('Tag', secondary=tag_item_assoc_table)
 
     def _get_code(self):
         return encode58(self.id_)
@@ -70,3 +79,9 @@ class Item(Base):
     def get_by_code(cls, code):
         it = DBSession.query(cls).filter(cls.code == code)
         return it.first()
+
+class Tags(Base):
+    __tablename__ = 'tags'
+    id_ = Column(Integer, primary_key=True)
+    name = Column(Unicode(50), unique=True, index=True)
+    items = relationship('Item', secondary=tag_item_assoc_table)
