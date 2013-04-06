@@ -68,10 +68,10 @@ class User(Base):
 
     def __init__(self, dev_id, username=None, password=None, name=None, email=None):
         self.dev_id = dev_id
-        self.username = username
-        self.name = name
-        self.email = email
-        self.password = password
+        if username: self.username = username
+        if name: self.name = name
+        if email: self.email = email
+        if password: self.password = password
 
     def to_dict(self):
         return dict(
