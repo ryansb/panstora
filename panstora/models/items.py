@@ -76,18 +76,12 @@ class Item(Base):
 
     @classmethod
     def get_by_code(cls, code):
-        print "hello there"
-        it = DBSession.query(cls).filter(cls.id_ == decode58(code))
+        it = DBSession.query(cls).filter(cls.id_ == encode58(code))
         return it.first()
 
     @classmethod
     def get_all(cls):
         return DBSession.query(cls).all()
-
-    @classmethod
-    def get_by_code(cls, code):
-        it = DBSession.query(cls).filter(cls.code == code)
-        return it.first()
 
     def to_dict(self, deep=False):
         if deep:
