@@ -6,7 +6,6 @@ db_url = "sqlite:////tmp/test.db"
 
 
 def main(global_config, **settings):
-    print settings
     config = Configurator(settings=settings)
     config.scan("panstora.views")
 
