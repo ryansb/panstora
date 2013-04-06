@@ -1,0 +1,44 @@
+[
+	{
+		"name": "Denim Jeans",
+		"description": "A basic pair of jeans. Nice and simple.",
+		"tags": [
+			"jeans",
+			"denim",
+			"blue"
+		],
+		"price": 15.00,
+		"location": {
+			"dept": "clothes",
+			"rack": 1
+		}
+	},
+	{
+		"name": "Plaid Jeans",
+		"description": "Denim jeans are so 5 minutes ago.",
+		"tags": [
+			"jeans",
+			"plaid",
+			"hipster"
+		],
+		"price": 23.75,
+		"location": {
+			"dept": "clothes",
+			"rack": 3
+		}
+	},
+	{
+		"name": "Thick Glasses",
+		"description": "To accent your eyes. Lensless.",
+		"tags": [
+			"hipster",
+			"glasses",
+			"edgy"
+		],
+		"price": 16.25,
+		"location": {
+			"dept": "eyewear",
+			"rack": 1
+		}
+	}
+]
