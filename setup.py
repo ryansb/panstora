@@ -10,29 +10,30 @@ with open(os.path.join(here, 'README.rst')) as f:
 
 
 setup(name='panstora',
-    version=0.1,
-    description='panstora',
-    long_description=README,
-    classifiers=[
-        "Programming Language :: Python",
-        "Framework :: Pylons",
-        "Topic :: Internet :: WWW/HTTP",
-        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
-    ],
-    keywords="web services",
-    author='',
-    author_email='',
-    url='',
-    packages=find_packages(),
-    include_package_data=True,
-    zip_safe=False,
-    install_requires=['PasteScript',
-                      'sqlalchemy',
-                      'zope.sqlalchemy',
-                      'cryptacular'],
-    entry_points = """\
-    [paste.app_factory]
-    main = panstora:main
-    """,
-    paster_plugins=['pyramid'],
-)
+      version=0.1,
+      description='panstora',
+      long_description=README,
+      classifiers=[
+          "Programming Language :: Python",
+          "Framework :: Pylons",
+          "Topic :: Internet :: WWW/HTTP",
+          "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
+      ],
+      keywords="web services",
+      author='',
+      author_email='',
+      url='',
+      packages=find_packages(),
+      include_package_data=True,
+      zip_safe=False,
+      install_requires=['PasteScript',
+                        'nose',
+                        'sqlalchemy',
+                        'zope.sqlalchemy',
+                        'cryptacular'],
+      entry_points="""\
+      [paste.app_factory]
+      main = panstora:main
+      """,
+      paster_plugins=['pyramid'],
+      )
