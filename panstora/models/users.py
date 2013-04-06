@@ -22,7 +22,6 @@ from sqlalchemy.types import (
 )
 
 from sqlalchemy.sql import func
-from sqlalchemy.ext.declarative import declarative_base
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
@@ -32,6 +31,8 @@ from pyramid.security import (
     Allow,
 )
 
+from panstora.models import Base
+
 from panstora.utils import (
     hash_password,
     encode58,
@@ -39,7 +40,6 @@ from panstora.utils import (
 )
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
-Base = declarative_base()
 
 crypt = cryptacular.bcrypt.BCRYPTPasswordManager()
 
