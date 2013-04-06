@@ -30,6 +30,7 @@ setup(name='panstora',
                       'PasteScript',
                       'waitress',
                       'sqlalchemy',
+                      'zope.sqlalchemy',
                       'cryptacular'],
     entry_points = """\
     [paste.app_factory]
