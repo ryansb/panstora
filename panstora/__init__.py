@@ -2,8 +2,11 @@
 """
 from pyramid.config import Configurator
 
+db_url = "sqlite:////tmp/test.db"
+
 
 def main(global_config, **settings):
+    print settings
     config = Configurator(settings=settings)
     config.scan("panstora.views")
 
@@ -12,5 +15,7 @@ def main(global_config, **settings):
 
     # Set up routes
     config.add_route('index', '/')
+
+    db_url = settings['database.url']
 
     return config.make_wsgi_app()

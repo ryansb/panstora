@@ -7,8 +7,6 @@ from sqlalchemy import (
 )
 
 from sqlalchemy.orm import (
-    scoped_session,
-    sessionmaker,
     relation,
     backref,
     column_property,
@@ -23,15 +21,13 @@ from sqlalchemy.types import (
 
 from sqlalchemy.sql import func
 
-from zope.sqlalchemy import ZopeTransactionExtension
-
 from pyramid.security import (
     Everyone,
     Authenticated,
     Allow,
 )
 
-from panstora.models import Base
+from panstora.models import Base, DBSession
 
 from panstora.utils import (
     hash_password,
@@ -39,7 +35,6 @@ from panstora.utils import (
     decode58
 )
 
-DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
 crypt = cryptacular.bcrypt.BCRYPTPasswordManager()
 
@@ -85,8 +80,16 @@ class User(Base):
         return DBSession.query(cls).filter(cls.username == username).first()
 
     @classmethod
+    def get_all(cls):
+        return DBSession.query(cls).all()
+
+    @classmethod
     def check_password(cls, username, password):
         user = cls.get_by_username(username)
         if not user:
             return False
         return crypt.check(user.password, password)
+
+    def put(self):
+        DBSession.add(self)
+        DBSession.commit()

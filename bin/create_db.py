@@ -1,4 +1,10 @@
-from panstora.models import Base, Item, Tag, User
+try:
+    import os
+    os.remove("/tmp/test.db")
+except:
+    pass
+
+from panstora.models import *
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
