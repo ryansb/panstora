@@ -14,3 +14,4 @@ Contributors
 ------------
 
 -   oddshocks (David Gay)
+-   masterkoppa (Andres Ruiz)
