@@ -81,8 +81,34 @@ class Item(Base):
         it = DBSession.query(cls).filter(cls.code == code)
         return it.first()
 
+    def to_dict(self, deep=False):
+        if deep:
+            return dict(
+                id_=self.id_
+                name=self.name
+                tags=[t.to_dict() for t in self.tags]
+            )
+        return dict(
+            id_=self.id_
+            name=self.name
+            tags=[t.name() for t in self.tags]
+        )
+
 class Tags(Base):
     __tablename__ = 'tags'
     id_ = Column(Integer, primary_key=True)
     name = Column(Unicode(50), unique=True, index=True)
     items = relationship('Item', secondary=tag_item_assoc_table)
+
+    def to_dict(self, deep=False):
+        if deep:
+            return dict(
+                id_=self.id_
+                name=self.name
+                items=[i.to_dict() for i in self.items]
+            )
+        return dict(
+            id_=self.id_
+            name=self.name
+            items=[i.name for i in self.items]
+        )
