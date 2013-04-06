@@ -30,6 +30,8 @@ from pyramid.security import (
     Allow,
 )
 
+from panstora.models import Base
+
 from panstora.utils import (
     hash_password,
     encode58,
@@ -37,7 +39,6 @@ from panstora.utils import (
 )
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
-Base = declarative_base()
 
 
 class Item(Base):
