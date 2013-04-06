@@ -75,6 +75,12 @@ class Item(Base):
         return it.first()
 
     @classmethod
+    def get_by_code(cls, code):
+        print "hello there"
+        it = DBSession.query(cls).filter(cls.id_ == decode58(code))
+        return it.first()
+
+    @classmethod
     def get_all(cls):
         return DBSession.query(cls).all()
 

@@ -29,6 +29,7 @@ setup(name='panstora',
       install_requires=['PasteScript',
                         'nose',
                         'sqlalchemy',
+                        'pyramid',
                         'zope.sqlalchemy',
                         'cryptacular'],
       entry_points="""\
