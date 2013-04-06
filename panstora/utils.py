@@ -1,7 +1,7 @@
 import cryptacular.bcrypt
 crypt = cryptacular.bcrypt.BCRYPTPasswordManager()
 
-alphabet = ('123456789abcdefghijkmnopqrstuvwxyz'
+alphabet = ('0123456789abcdefghijkmnopqrstuvwxyz'
             'ABCDEFGHJKLMNPQRSTUVWXYZ')
 base_count = len(alphabet)
 
