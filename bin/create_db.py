@@ -6,6 +6,8 @@ except:
 
 from panstora.models import *
 
+import transaction
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import json
@@ -27,15 +29,16 @@ for item in products:
     i.price = item['price']
     i.rack = item['location']['rack']
     i.dept = item['location']['dept']
+    i.put()
+    it = Item.get_by_name(item['name'])
     for tag in item['tags']:
         if Tag.get_by_name(tag):
-            i.tags.append(Tag.get_by_name(tag))
-            i.put()
+            it.tags.append(Tag.get_by_name(tag))
             continue
         t = Tag()
         t.name = tag
-        i.tags.append(t)
-        i.put()
+        it.tags.append(t)
+        it.put()
 
 users = json.loads(open('data/test_users.json').read())
 for u in users:
@@ -47,3 +50,4 @@ for u in users:
     user.put()
 
 DBSession.flush()
+transaction.commit()
