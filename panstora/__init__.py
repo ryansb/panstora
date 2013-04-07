@@ -11,8 +11,8 @@ def main(global_config, **settings):
 
     # Static view setup
     if settings['url_prefix']:
-        config.add_static_view(name='http://%s/static' % settings['url_prefix'],
-                               path='static')
+        config.add_static_view('http://%s/static' % settings['url_prefix'],
+                               'panstora:static')
     else:
         config.add_static_view('static', 'static', cache_max_age=3600)
 
