@@ -18,8 +18,6 @@
 </div>
 <ul class="nav-list">
 	<li><a href="/">Home</a></li>
-	<li>NavB</li>
-	<li>NavC</li>
 </ul>
 
 ${self.body()}
