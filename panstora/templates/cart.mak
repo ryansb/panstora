@@ -6,7 +6,6 @@
 </div>
 % if request.session['user'] is not None:
 	<% user = request.session['user'] %>
-	<p>dev_id is ${request.session['dev_id']}</p>
 	<strong>${user.name}'s shopping cart</strong>
 	<ul>
 		% for item in user_cart_items:
