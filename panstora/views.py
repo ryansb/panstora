@@ -1,3 +1,5 @@
+import transaction
+
 from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
@@ -5,7 +7,7 @@ from pyramid.httpexceptions import (
 
 from pyramid.view import view_config
 
-from panstora.models import User, Item, Tag
+from panstora.models import Cart, Item, Tag, User
 
 
 @view_config(route_name='index', renderer='index.mak')
@@ -26,6 +28,10 @@ def item_view(request):
         user = User.get_by_dev_id(dev_id)
         # Store the dev_id for use in cart views
         request.session['dev_id'] = dev_id
+        # Store the item code in case the user tries to add it to cart
+        request.session['item_code'] = item.code
+        # Store the user
+        request.session['user'] = user
     return {
         'item': item,
         'dev_id': dev_id,
@@ -35,6 +41,29 @@ def item_view(request):
 
 @view_config(route_name='cart', renderer='cart.mak')
 def cart_view(request):
+    dev_id = request.session['dev_id']
+    user = User.get_by_dev_id(dev_id)
     return {
-        'dev_id': request.session['dev_id'],
+        'dev_id': dev_id,
+        'user': user,
+        'user_cart_items': user.cart.items,
     }
+
+
+@view_config(route_name='cart_add')
+def cart_add_view(request):
+    # can't be passing around User and Item because of their
+    # ORM nature... passing and using these objects will
+    # result in a DetachedInstanceError, because the object
+    # is not bound to a session properly, lazy load
+    # operation of the cart attribute or whatever will not work.
+    # So we have to do things this way
+    user = User.get_by_dev_id(request.session['dev_id'])
+    item_code = request.session['item_code']
+    # The user may not have a cart. Let's hook them up.
+    if not user.cart:
+        user.cart = Cart()
+    user.cart.items.append(Item.get_by_code(int(item_code)))
+    user.put()
+    transaction.commit()
+    return HTTPFound(location=request.route_url('cart'))
