@@ -17,7 +17,7 @@
 	</span>
 </div>
 <ul class="nav-list">
-	<li><a href="/">Home</a></li>
+	<li><a class="button" href="/">Home</a></li>
 </ul>
 
 ${self.body()}
