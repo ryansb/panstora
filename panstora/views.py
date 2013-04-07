@@ -23,8 +23,9 @@ def item_view(request):
     user = None
     if request.GET:
         dev_id = request.GET['DEV_ID']
-        #user =
+        user = User.get_by_dev_id(dev_id)
     return {
         'item': item,
         'dev_id': dev_id,
+        'user': user,
     }
