@@ -7,10 +7,13 @@
 % if request.session['user'] is not None:
 	<% user = request.session['user'] %>
 	<p>dev_id is ${request.session['dev_id']}</p>
-	<h1>${user.name}'s shopping cart</h1>
+	<strong>${user.name}'s shopping cart</strong>
 	<ul>
 		% for item in user_cart_items:
 			<li>${item.name}</li>
 		% endfor
 	</ul>
+	<a class="button" href="/">Checkout</a>
+% else:
+<p>Unknown user. Scan an item to identify yourself.</p>
 % endif

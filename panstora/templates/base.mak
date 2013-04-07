@@ -8,6 +8,9 @@
 	<link href="${request.static_url(
 		"panstora:static/css/bootstrap.min.css")}"
 		rel="stylesheet" type="text/css" media="all">
+	<link href="${request.static_url(
+		"panstora:static/css/panstora.css")}"
+		rel="stylesheet" type="text/css" media="all">
 	<title>Panstora</title>
 </head>
 <body>
@@ -20,11 +23,10 @@
 	</small>
 	</h1>
 </div>
-<!--
 <ul class="nav-list">
 	<li><a class="button" href="/">Home</a></li>
+	<li><a class="button" href="/cart">Cart</a></li>
 </ul>
--->
 <hr/>
 <div class="container-fluid">
 	<div class="row-fluid">
