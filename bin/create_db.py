@@ -28,19 +28,14 @@ for item in products:
     i.rack = item['location']['rack']
     i.dept = item['location']['dept']
     for tag in item['tags']:
-        if db.query(Tag).filter_by(name=tag).first():
-            i.tags.append(db.query(Tag).filter_by(name=tag).first())
-            db.add(i)
-            db.commit()
+        if Tag.get_by_name(tag):
+            i.tags.append(Tag.get_by_name(tag))
+            i.put()
             continue
         t = Tag()
         t.name = tag
         i.tags.append(t)
-        db.add(t)
-        db.add(i)
-        db.commit()
-    db.add(i)
-    db.commit()
+        i.put()
 
 users = json.loads(open('data/test_users.json').read())
 for u in users:
@@ -49,5 +44,6 @@ for u in users:
     user.email = u['email']
     user.password = u['password']
     user.username = u['username']
-    db.add(user)
-    db.commit()
+    user.put()
+
+DBSession.flush()

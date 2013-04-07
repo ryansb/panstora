@@ -31,14 +31,13 @@ from pyramid.security import (
 from panstora.models import Base, DBSession
 
 from panstora.utils import (
-    hash_password,
     encode58,
     decode58
 )
 
 
 tag_item_assoc_table = Table(
-    'association', Base.metadata,
+    'tag_item_assoc', Base.metadata,
     Column('tag_id', Integer, ForeignKey('tags.id_')),
     Column('item_id', Integer, ForeignKey('items.id_'))
 )
@@ -98,7 +97,7 @@ class Item(Base):
 
     def put(self):
         DBSession.add(self)
-        DBSession.commit()
+        DBSession.flush(
 
 class Tag(Base):
     __tablename__ = 'tags'
@@ -130,4 +129,4 @@ class Tag(Base):
 
     def put(self):
         DBSession.add(self)
-        DBSession.commit()
+        DBSession.flush()

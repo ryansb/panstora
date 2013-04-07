@@ -49,6 +49,7 @@ class User(Base):
     name = Column(Unicode(64))
     email = Column(Unicode(64))
     dev_id = Column(Unicode(64), unique=True)
+    cart = relation('Cart', uselist=False, backref='owner')
 
     _password = Column('password', Unicode(64))
 
@@ -92,4 +93,4 @@ class User(Base):
 
     def put(self):
         DBSession.add(self)
-        DBSession.commit()
+        DBSession.flush()
