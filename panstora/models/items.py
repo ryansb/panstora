@@ -97,7 +97,8 @@ class Item(Base):
 
     def put(self):
         DBSession.add(self)
-        DBSession.flush(
+        DBSession.flush()
+
 
 class Tag(Base):
     __tablename__ = 'tags'
