@@ -24,8 +24,10 @@
 	</h1>
 </div>
 <ul class="nav-list">
-	<li><a class="button" href="/">Home</a></li>
-	<li><a class="button" href="/cart">Cart</a></li>
+	<center>
+		<li><a class="btn btn-primary text-center" href="/">Home</a></li>
+		<li><a class="btn btn-primary text-center" href="/cart">Cart</a></li>
+	</center>
 </ul>
 <hr/>
 <div class="container-fluid">
