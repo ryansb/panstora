@@ -19,7 +19,12 @@ def item_view(request):
     if item is None:
         # There's no item with that ID, so go back home for now
         return HTTPFound(location=request.route_url('index'))
-    # Otherwise, let's return the item data to the item view
+    dev_id = None
+    user = None
+    if request.GET:
+        dev_id = request.GET['DEV_ID']
+        #user =
     return {
         'item': item,
+        'dev_id': dev_id,
     }

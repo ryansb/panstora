@@ -19,3 +19,7 @@
 	<li><strong>Department:</strong>${item.dept}</li>
 </ul>
 </div>
+
+% if dev_id is not None:
+	<a class="button" href="/">Add to Cart</a>
+% endif
