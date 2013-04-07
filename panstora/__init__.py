@@ -28,6 +28,7 @@ def main(global_config, **settings):
     config.add_route('item', '/item/{item_code}')
     config.add_route('cart', '/cart')
     config.add_route('cart_add', '/cart/add')
+    config.add_route('error', '/error')
 
     db_url = settings['database.url']
 

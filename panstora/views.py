@@ -41,7 +41,11 @@ def item_view(request):
 
 @view_config(route_name='cart', renderer='cart.mak')
 def cart_view(request):
-    dev_id = request.session['dev_id']
+    try:
+        dev_id = request.session['dev_id']
+    except KeyError:
+        return HTTPFound(location=request.route_url('error',
+                error_msg="Could not find device ID. Try scanning an item."))
     user = User.get_by_dev_id(dev_id)
     return {
         'dev_id': dev_id,
@@ -67,3 +71,12 @@ def cart_add_view(request):
     user.put()
     transaction.commit()
     return HTTPFound(location=request.route_url('cart'))
+
+
+@view_config(route_name='error', renderer='error.mak')
+def error_view(request):
+    try:
+        error_msg = request.matchdict.get('error_msg')
+    except KeyError:
+        error_msg = "There wasn't an error! Move along..."
+    return dict(error_msg=error_msg)
