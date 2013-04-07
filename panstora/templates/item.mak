@@ -21,5 +21,5 @@
 </div>
 
 % if dev_id is not None:
-	<a class="btn btn-success" href="/">Add to Cart</a>
+	<a class="btn btn-primary" href="/cart/add">Add to Cart</a>
 % endif

@@ -2,14 +2,14 @@
 	{
 		"name": "Ryan Brown",
 		"email": "ryansb@csh.rit.edu",
-		"dev_id": "1234567890",
+		"dev_id": "123",
 		"username": "ryansb",
 		"password": "hits123"
 	},
 	{
 		"name": "Odd Shocks",
 		"email": "oddshocks@gmail.com",
-		"dev_id": "12345678901234567890",
+		"dev_id": "456",
 		"username": "oddshocks",
 		"password": "hits123"
 	}
