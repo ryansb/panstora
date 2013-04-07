@@ -10,7 +10,7 @@ def main(global_config, **settings):
     config.scan("panstora.views")
 
     # Static view setup
-    if settings['url_prefix']:
+    if settings.get('url_prefix', None):
         config.add_static_view('http://%s/static' % settings['url_prefix'],
                                'panstora:static')
     else:
