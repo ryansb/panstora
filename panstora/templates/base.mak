@@ -26,7 +26,14 @@
 </ul>
 -->
 <hr/>
-${self.body()}
-
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2"></div>
+		<div class="span8">
+		${self.body()}
+		</div>
+		<div class="span2"></div>
+	</div>
+</div>
 </body>
 </html>
