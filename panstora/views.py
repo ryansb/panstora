@@ -24,8 +24,17 @@ def item_view(request):
     if request.GET:
         dev_id = request.GET['DEV_ID']
         user = User.get_by_dev_id(dev_id)
+        # Store the dev_id for use in cart views
+        request.session['dev_id'] = dev_id
     return {
         'item': item,
         'dev_id': dev_id,
         'user': user,
+    }
+
+
+@view_config(route_name='cart', renderer='cart.mak')
+def cart_view(request):
+    return {
+        'dev_id': request.session['dev_id'],
     }

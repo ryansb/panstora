@@ -1,12 +1,19 @@
 """Main entry point
 """
 from pyramid.config import Configurator
+from pyramid.session import UnencryptedCookieSessionFactoryConfig
 
 db_url = "sqlite:////tmp/test.db"
 
 
 def main(global_config, **settings):
-    config = Configurator(settings=settings)
+    # Session factory
+    session_factory = UnencryptedCookieSessionFactoryConfig(
+            settings['session.secret'])
+
+    # Configurator setup
+    config = Configurator(settings=settings,
+                          session_factory=session_factory)
     config.scan("panstora.views")
 
     # Static view setup
@@ -19,6 +26,8 @@ def main(global_config, **settings):
     # Set up routes
     config.add_route('index', '/')
     config.add_route('item', '/item/{item_code}')
+    config.add_route('cart', '/cart')
+    config.add_route('cart_add', '/cart/add')
 
     db_url = settings['database.url']
 
