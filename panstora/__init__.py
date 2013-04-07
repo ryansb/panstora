@@ -10,7 +10,11 @@ def main(global_config, **settings):
     config.scan("panstora.views")
 
     # Static view setup
-    config.add_static_view('static', 'static', cache_max_age=3600)
+    if settings['url_prefix']:
+        config.add_static_view(name='http://%s/static' % settings['url_prefix'],
+                               path='static')
+    else:
+        config.add_static_view('static', 'static', cache_max_age=3600)
 
     # Set up routes
     config.add_route('index', '/')
