@@ -31,8 +31,8 @@ from pyramid.security import (
 from panstora.models import Base, DBSession
 
 from panstora.utils import (
-    encode58,
-    decode58
+    encode62,
+    decode62
 )
 
 
@@ -57,7 +57,7 @@ class Item(Base):
     dept = Column(Unicode(64))
 
     def _get_code(self):
-        return encode58(self.id_)
+        return encode62(self.id_)
 
     def _set_code(self, newcode):
         raise NotImplementedError("You can't set this property.")
@@ -75,7 +75,7 @@ class Item(Base):
 
     @classmethod
     def get_by_code(cls, code):
-        it = DBSession.query(cls).filter(cls.id_ == encode58(code))
+        it = DBSession.query(cls).filter(cls.id_ == encode62(code))
         return it.first()
 
     @classmethod

@@ -6,8 +6,8 @@ alphabet = ('0123456789abcdefghijkmnopqrstuvwxyz'
 base_count = len(alphabet)
 
 
-def encode58(num):
-    """ Returns num in a base58-encoded string """
+def encode62(num):
+    """ Returns num in a base62-encoded string """
     encode = ''
 
     if (num < 0):
@@ -24,8 +24,8 @@ def encode58(num):
     return encode
 
 
-def decode58(s):
-    """ Decodes the base58-encoded string s into an integer """
+def decode62(s):
+    """ Decodes the base62-encoded string s into an integer """
     decoded = 0
     multi = 1
     s = s[::-1]
@@ -38,4 +38,3 @@ def decode58(s):
 
 def hash_password(password):
     return unicode(crypt.encode(password))
-

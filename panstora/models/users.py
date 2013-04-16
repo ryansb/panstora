@@ -31,8 +31,8 @@ from panstora.models import Base, DBSession
 
 from panstora.utils import (
     hash_password,
-    encode58,
-    decode58
+    encode62,
+    decode62
 )
 
 
